@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         Title="GameResult" Height="250" Width="250">
     <Grid>
-        <Label Name="Result" Content="Результат" HorizontalAlignment="Center" Margin="0,99,0,0" VerticalAlignment="Top"/>
-        <Button Name="PlayAgain" Content="Играть снова" HorizontalAlignment="Center" Margin="0,157,0,0" VerticalAlignment="Top" Width="148"/>
+        <Label Name="Result" Content="Результат" HorizontalAlignment="Center" Margin="0,63,0,0" VerticalAlignment="Top"/>
+        <Button Name="PlayAgain" Click="restart_Click" Content="Играть снова" HorizontalAlignment="Center" Margin="0,157,0,0" VerticalAlignment="Top" Width="148"/>
 
     </Grid>
 </Window>

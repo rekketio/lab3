@@ -7,6 +7,7 @@ using System.Text;
 
 namespace core
 {
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class kamenService : IkamenService
     {
         List<Lobby> lobbies = new List<Lobby>();
