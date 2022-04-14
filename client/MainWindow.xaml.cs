@@ -71,7 +71,7 @@ namespace client
                 
             }
             client.GameMoveSend(move, _lobbyID, _myID);
-            game_selection_my = move;
+            mySelect = move;
             GameResultAsync();
 
             Rock.IsEnabled = false;
@@ -86,12 +86,12 @@ namespace client
 
         private void GameResult()
         {
-            if (game_selection_my != 0 && game_selection_opponent != 0)
+            if (mySelect != 0 && opSelect != 0)
             {
                 string result;
-                if (game_selection_my == game_selection_opponent)
+                if (mySelect == opSelect)
                     result = "Ничья";
-                else if ((1 == game_selection_my && game_selection_opponent == 3) || (2 == game_selection_my && game_selection_opponent == 1) || (3 == game_selection_my && game_selection_opponent == 2))
+                else if ((1 == mySelect && opSelect == 3) || (2 == mySelect && opSelect == 1) || (3 == mySelect && opSelect == 2))
                     result = "Победа";
                 else
                     result = "Поражение";
@@ -104,7 +104,7 @@ namespace client
 
         public void GameMoveReceive(int GameSelection)
         {
-            game_selection_opponent = GameSelection;
+            opSelect = GameSelection;
             GameResultAsync();
             Rock.IsEnabled = true;
             Scissors.IsEnabled = true;
@@ -119,8 +119,8 @@ namespace client
         }
 
         private kamenServices.IkamenServiceClient client;
-        public int game_selection_opponent = 0;
-        public int game_selection_my = 0;
+        public int opSelect = 0;
+        public int mySelect = 0;
         private int _lobbyID;
         private int _myID;
 

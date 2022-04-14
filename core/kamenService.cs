@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
 using System.ServiceModel;
-using System.Text;
 
 namespace core
 {
@@ -12,17 +10,17 @@ namespace core
     {
         List<Lobby> lobbies = new List<Lobby>();
 
-        int next_id_player = 1;
-        int next_id_lobby = 1;
+        int PlayerID = 1;
+        int LobbyID = 1;
 
         public Tuple<int, int, string> Connect(string nickname)
         {
             int lobbyID;
-            string nickname_opponent = "Нет соперника";
+            string opNick = "Нет соперника";
 
             Player player = new Player()
             {
-                Id = next_id_player,
+                Id = PlayerID,
                 Name = nickname,
                 OperationContext = OperationContext.Current
             };
@@ -39,7 +37,7 @@ namespace core
 
             if (freeLobby == null)
             {
-                Lobby lobby = new Lobby(next_id_lobby, player);
+                Lobby lobby = new Lobby(LobbyID, player);
                 lobbyID = lobby.Id;
                 lobbies.Add(lobby);
             }
@@ -48,15 +46,15 @@ namespace core
                 foreach (var opponent in freeLobby.Players)
                 {
                     opponent.OperationContext.GetCallbackChannel<IServiceCallback>().StartGame(player.Name);
-                    nickname_opponent = opponent.Name;
+                    opNick = opponent.Name;
                 }
                 freeLobby.Players.Add(player);
                 lobbyID = freeLobby.Id;
             }
-            next_id_player++;
-            next_id_lobby++;
+            PlayerID++;
+            LobbyID++;
 
-            return new Tuple<int, int, string>(lobbyID, player.Id, nickname_opponent);
+            return new Tuple<int, int, string>(lobbyID, player.Id, opNick);
         }
 
         public void Disconnect(int lobbyId)
